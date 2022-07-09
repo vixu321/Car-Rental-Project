@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uZ1tBYbUh4oPzLF3eXMkeY3hNTM/6OZX/CJghSlC9XF1k9t8s6wBJx1L/0fyxqSPcvcBBAc5RfGjgG6gNNktxg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\vixu1\\source\\repos\\CarRentalProject\\CarRentalProject\\CarRentalProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vixu1\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.26\\microsoft.netcore.app.host.win-x64.3.1.26.nupkg.sha512"
+  ],
+  "logs": []
+}
