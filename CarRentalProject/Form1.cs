@@ -8,15 +8,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace CarRentalProject
 {
     public partial class Form1 : Form
     {
+        public static Panel visiblePanel;
+        public static Panel basePanel;
+        public static Panel createListingPanel;
+        private static Label signedInLabel;
+        public static string name;
+        private int carsMade = 0;
+
         public Form1()
         {
             InitializeComponent();
+            visiblePanel = loginPanel;
+            basePanel = signedInPanel;
+            signedInLabel = userNameLabel;
+            createListingPanel = createCarPanel;
+
         }
+
+        private void Form1_Load(object sender, System.EventArgs e)
+        {
+        }
+        private void userNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -25,96 +47,164 @@ namespace CarRentalProject
 
         private void loginTextBox_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        private void signupButton_Click_1(object sender, EventArgs e)
         {
-            string[] data = new string[100];
-            string line;
-            int i = 0;
-            string path = @"C:\Users\vixu1\source\repos\CarRentalProject\logins.txt";
-            
-            //Make filestream for reading the file
-            FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
-            
-            using (StreamReader sr = new StreamReader(fsRead))
-            {
-                //Write contents of file to data array
-                while ((line = sr.ReadLine()) != null)
-                {
-                    data[i] = line;
-                    i += 1;
-                }
-            }
+            Program.signUp(loginTextBox, passwordTextBox);
 
-            for(int j = 0; j<i; j += 2)
-            {
-                //Check if login and password match data
-                if (loginTextBox.Text == data[j] && passwordTextBox.Text == data[j + 1])
-                {
-                    MessageBox.Show("Logged-in!", "Logged-in!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                //Check if login matches the data, but the password is different
-                else if (loginTextBox.Text == data[j] && passwordTextBox.Text != data[j + 1])
-                {
-                    MessageBox.Show("Password doesnt match the login!", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-            //No user of that name found
-            MessageBox.Show("User of that login already exists!", "Login Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        //Registration process
-        private void signupButton_Click(object sender, EventArgs e)
+        private void loginButton_Click_1(object sender, EventArgs e)
         {
-            //Check if text boxes are empty
-            if (loginTextBox.Text == "" || passwordTextBox.Text == "")
+            Program.logIn(loginTextBox, passwordTextBox);
+        }
+
+        private void loginPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        public static void signedIn()
+        {
+            visiblePanel.Visible = false;
+            visiblePanel = basePanel;
+            visiblePanel.Visible = true;
+            signedInLabel.Text = "Witaj " + name +"!";
+        }
+
+        private void nameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void createCarButton_Click(object sender, EventArgs e)
+        {
+            visiblePanel = createListingPanel;
+            if (visiblePanel.Visible == true)
             {
-                MessageBox.Show("Login or password is missing!", "No Data!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                visiblePanel.Visible = false;
+            }
+            else
+            {
+                visiblePanel.Visible = true;
+            }
+        }
+
+        private void createCarPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void createListingButton_Click(object sender, EventArgs e)
+        {
+            Car newCar = new Car(carNameTextBox.Text, carBrandTextBox.Text, carYearTextBox.Text, carOdoTextBox.Text, carPriceTextBox.Text);
+            createNewCarPanel(carsMade, newCar);
+            visiblePanel.Visible = false;
+            visiblePanel = basePanel;
+            carsMade++;
+        }
+
+        Panel[] panels = new Panel[18];
+
+        private int yplace = 0;
+        private int xplace = 0;
+        public void createNewCarPanel(int carsMade, Car car)
+        {
+            int numOfInfoBoxes = 6;
+
+            Panel panel = new Panel();
+            Label[] textBoxes = new Label[numOfInfoBoxes];
+
+            Size TextBoxSize = new Size(104, 16);
+            panel.Location = new Point(150 + 130 * xplace, 10 + 270 * yplace);
+
+            //Change x and y place for next panel
+            xplace++;
+            if (xplace >= 3)
+            {
+                yplace++;
+                xplace = 0;
             }
 
-            string[] data = new string[100];
-            //Make the path for the logins file
-            string path = @"C:\Users\vixu1\source\repos\CarRentalProject\logins.txt";
-            FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
-            string line;
-            int i = 0;
 
-            //Write contents of file to data array
-            using (StreamReader sr = new StreamReader(fsRead))
-            {
-                while ((line = sr.ReadLine()) != null)
-                {
-                    data[i] = line;
-                    i += 1;
-
-                }
-            }
-            fsRead.Close();
+            panel.Size = new Size(124, 250);
+            panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             
-            FileStream fsWrite = new FileStream(path, FileMode.Append, FileAccess.Write);
-            using (StreamWriter sw = new StreamWriter(fsWrite)) 
-            { 
-                //Check if the login already exists
-                for (int j = 0; j < i; j += 2)
-                {
-                    if (loginTextBox.Text == data[j])
-                    {
-                        MessageBox.Show("This login already exists!", "Registery Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                //Write login and password to file
-                sw.WriteLine(loginTextBox.Text);
-                sw.WriteLine(passwordTextBox.Text);
-                MessageBox.Show("Successfully registered!", "Registered!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            this.Controls.Add(panel);
+
+            //Make the buttons, change numOfInfoBoxes to increase buttons
+            for (int i = 0; i<numOfInfoBoxes; i++)
+            {
+                textBoxes[i] = new Label();
+                textBoxes[i].Location = new Point(10, 10 + 25 * i);
+                textBoxes[i].Size = TextBoxSize;
+                textBoxes[i].ForeColor = Color.White;
+                panel.Controls.Add(textBoxes[i]);
             }
-            fsWrite.Close();
-        } 
+
+            //Create button for deleteing the listing
+            Button deleteListingButton = new Button();
+            deleteListingButton.Text = "Delete listing";
+            deleteListingButton.Location = new Point(10, 10 + 25 * numOfInfoBoxes);
+            deleteListingButton.BackColor = Color.White;
+            deleteListingButton.ForeColor = Color.Black;
+
+
+            panel.Name = carsMade.ToString();
+
+            //Set the click event, send panel through the arguments
+            deleteListingButton.Click += new EventHandler((sender, e)=>deleteListingButton_Click(sender, e, panel));
+
+            panel.Controls.Add(deleteListingButton);
+
+            textBoxes[0].Text = car.name;
+            textBoxes[1].Text = car.brand;
+            textBoxes[2].Text = car.year;
+            textBoxes[3].Text = car.odometer;
+            textBoxes[4].Text = car.pricePerHour;
+            textBoxes[5].Text = panel.Name;
+
+            panels[carsMade] = panel;
+        }
+
+        void deleteListingButton_Click(object sender, EventArgs e, Panel panel)
+        {
+            int position = Int32.Parse(panel.Name);
+
+            //Change locations of the panels
+            for (int i = carsMade-1; i>position; i--)
+            {
+                panels[i].Location = panels[i - 1].Location;
+            }
+
+            //Dispose of the deleted panel, free the array index
+            panels[position].Dispose();
+            panels[position] = null;
+
+            //Set the array to the proper order
+            for(int i = position; i<carsMade-1; i++)
+            {
+                panels[i] = panels[i + 1];
+                panels[i].Name = i.ToString();
+            }
+
+            carsMade -= 1;
+
+            //Change xplace and yplace to the correct coordinates
+            if (xplace - 1 < 0)
+            {
+                xplace = 2;
+                yplace -= 1;
+            }
+            else
+            {
+                xplace -= 1;
+            }
+
+        }
+
     }
 }

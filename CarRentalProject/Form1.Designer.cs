@@ -29,71 +29,217 @@ namespace CarRentalProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.loginTextBox = new System.Windows.Forms.TextBox();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
             this.signupButton = new System.Windows.Forms.Button();
+            this.loginTextBox = new System.Windows.Forms.TextBox();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.loginPanel = new System.Windows.Forms.Panel();
+            this.signedInPanel = new System.Windows.Forms.Panel();
+            this.userNameLabel = new System.Windows.Forms.Label();
+            this.createCarPanel = new System.Windows.Forms.Panel();
+            this.createListingButton = new System.Windows.Forms.Button();
+            this.carPriceTextBox = new System.Windows.Forms.TextBox();
+            this.carOdoTextBox = new System.Windows.Forms.TextBox();
+            this.carYearTextBox = new System.Windows.Forms.TextBox();
+            this.carBrandTextBox = new System.Windows.Forms.TextBox();
+            this.carNameTextBox = new System.Windows.Forms.TextBox();
+            this.createCarButton = new System.Windows.Forms.Button();
+            this.loginPanel.SuspendLayout();
+            this.signedInPanel.SuspendLayout();
+            this.createCarPanel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // loginButton
+            // 
+            this.loginButton.Location = new System.Drawing.Point(95, 107);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(75, 23);
+            this.loginButton.TabIndex = 0;
+            this.loginButton.Text = "Log in";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click_1);
+            // 
+            // signupButton
+            // 
+            this.signupButton.Location = new System.Drawing.Point(95, 136);
+            this.signupButton.Name = "signupButton";
+            this.signupButton.Size = new System.Drawing.Size(75, 23);
+            this.signupButton.TabIndex = 1;
+            this.signupButton.Text = "Sign up";
+            this.signupButton.UseVisualStyleBackColor = true;
+            this.signupButton.Click += new System.EventHandler(this.signupButton_Click_1);
             // 
             // loginTextBox
             // 
-            this.loginTextBox.Location = new System.Drawing.Point(19, 18);
+            this.loginTextBox.Location = new System.Drawing.Point(81, 47);
             this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(129, 23);
-            this.loginTextBox.TabIndex = 0;
+            this.loginTextBox.Size = new System.Drawing.Size(100, 23);
+            this.loginTextBox.TabIndex = 2;
             this.loginTextBox.TextChanged += new System.EventHandler(this.loginTextBox_TextChanged);
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(19, 47);
+            this.passwordTextBox.Location = new System.Drawing.Point(81, 76);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(129, 23);
-            this.passwordTextBox.TabIndex = 1;
+            this.passwordTextBox.Size = new System.Drawing.Size(100, 23);
+            this.passwordTextBox.TabIndex = 3;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
-            // loginButton
+            // loginPanel
             // 
-            this.loginButton.Location = new System.Drawing.Point(32, 76);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(104, 23);
-            this.loginButton.TabIndex = 2;
-            this.loginButton.Text = "Login";
-            this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
+            this.loginPanel.Controls.Add(this.signupButton);
+            this.loginPanel.Controls.Add(this.passwordTextBox);
+            this.loginPanel.Controls.Add(this.loginButton);
+            this.loginPanel.Controls.Add(this.loginTextBox);
+            this.loginPanel.Location = new System.Drawing.Point(12, 7);
+            this.loginPanel.Name = "loginPanel";
+            this.loginPanel.Size = new System.Drawing.Size(246, 192);
+            this.loginPanel.TabIndex = 4;
+            this.loginPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.loginPanel_Paint);
             // 
-            // signupButton
+            // signedInPanel
             // 
-            this.signupButton.Location = new System.Drawing.Point(32, 105);
-            this.signupButton.Name = "signupButton";
-            this.signupButton.Size = new System.Drawing.Size(104, 23);
-            this.signupButton.TabIndex = 3;
-            this.signupButton.Text = "Sign up";
-            this.signupButton.UseVisualStyleBackColor = true;
-            this.signupButton.Click += new System.EventHandler(this.signupButton_Click);
+            this.signedInPanel.Controls.Add(this.userNameLabel);
+            this.signedInPanel.Controls.Add(this.createCarPanel);
+            this.signedInPanel.Controls.Add(this.createCarButton);
+            this.signedInPanel.Location = new System.Drawing.Point(2, 7);
+            this.signedInPanel.Name = "signedInPanel";
+            this.signedInPanel.Size = new System.Drawing.Size(126, 419);
+            this.signedInPanel.TabIndex = 5;
+            this.signedInPanel.Visible = false;
+            // 
+            // userNameLabel
+            // 
+            this.userNameLabel.AutoSize = true;
+            this.userNameLabel.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.userNameLabel.Location = new System.Drawing.Point(11, 7);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.Size = new System.Drawing.Size(38, 15);
+            this.userNameLabel.TabIndex = 7;
+            this.userNameLabel.Text = "label1";
+            this.userNameLabel.Click += new System.EventHandler(this.userNameLabel_Click);
+            // 
+            // createCarPanel
+            // 
+            this.createCarPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.createCarPanel.Controls.Add(this.createListingButton);
+            this.createCarPanel.Controls.Add(this.carPriceTextBox);
+            this.createCarPanel.Controls.Add(this.carOdoTextBox);
+            this.createCarPanel.Controls.Add(this.carYearTextBox);
+            this.createCarPanel.Controls.Add(this.carBrandTextBox);
+            this.createCarPanel.Controls.Add(this.carNameTextBox);
+            this.createCarPanel.Location = new System.Drawing.Point(7, 54);
+            this.createCarPanel.Name = "createCarPanel";
+            this.createCarPanel.Size = new System.Drawing.Size(109, 184);
+            this.createCarPanel.TabIndex = 2;
+            this.createCarPanel.Visible = false;
+            this.createCarPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.createCarPanel_Paint);
+            // 
+            // createListingButton
+            // 
+            this.createListingButton.Location = new System.Drawing.Point(17, 153);
+            this.createListingButton.Name = "createListingButton";
+            this.createListingButton.Size = new System.Drawing.Size(75, 23);
+            this.createListingButton.TabIndex = 5;
+            this.createListingButton.Text = "Create";
+            this.createListingButton.UseVisualStyleBackColor = true;
+            this.createListingButton.Click += new System.EventHandler(this.createListingButton_Click);
+            // 
+            // carPriceTextBox
+            // 
+            this.carPriceTextBox.BackColor = System.Drawing.Color.LavenderBlush;
+            this.carPriceTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.carPriceTextBox.Location = new System.Drawing.Point(3, 124);
+            this.carPriceTextBox.Name = "carPriceTextBox";
+            this.carPriceTextBox.Size = new System.Drawing.Size(100, 23);
+            this.carPriceTextBox.TabIndex = 4;
+            // 
+            // carOdoTextBox
+            // 
+            this.carOdoTextBox.BackColor = System.Drawing.Color.LavenderBlush;
+            this.carOdoTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.carOdoTextBox.Location = new System.Drawing.Point(3, 95);
+            this.carOdoTextBox.Name = "carOdoTextBox";
+            this.carOdoTextBox.Size = new System.Drawing.Size(100, 23);
+            this.carOdoTextBox.TabIndex = 3;
+            // 
+            // carYearTextBox
+            // 
+            this.carYearTextBox.BackColor = System.Drawing.Color.LavenderBlush;
+            this.carYearTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.carYearTextBox.Location = new System.Drawing.Point(3, 66);
+            this.carYearTextBox.Name = "carYearTextBox";
+            this.carYearTextBox.Size = new System.Drawing.Size(100, 23);
+            this.carYearTextBox.TabIndex = 2;
+            // 
+            // carBrandTextBox
+            // 
+            this.carBrandTextBox.BackColor = System.Drawing.Color.LavenderBlush;
+            this.carBrandTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.carBrandTextBox.Location = new System.Drawing.Point(3, 37);
+            this.carBrandTextBox.Name = "carBrandTextBox";
+            this.carBrandTextBox.Size = new System.Drawing.Size(100, 23);
+            this.carBrandTextBox.TabIndex = 1;
+            // 
+            // carNameTextBox
+            // 
+            this.carNameTextBox.BackColor = System.Drawing.Color.LavenderBlush;
+            this.carNameTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.carNameTextBox.Location = new System.Drawing.Point(3, 5);
+            this.carNameTextBox.Name = "carNameTextBox";
+            this.carNameTextBox.Size = new System.Drawing.Size(100, 23);
+            this.carNameTextBox.TabIndex = 0;
+            // 
+            // createCarButton
+            // 
+            this.createCarButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.createCarButton.Location = new System.Drawing.Point(7, 25);
+            this.createCarButton.Name = "createCarButton";
+            this.createCarButton.Size = new System.Drawing.Size(109, 23);
+            this.createCarButton.TabIndex = 1;
+            this.createCarButton.Text = "Create listing";
+            this.createCarButton.UseVisualStyleBackColor = false;
+            this.createCarButton.Click += new System.EventHandler(this.createCarButton_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.signupButton);
-            this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.passwordTextBox);
-            this.Controls.Add(this.loginTextBox);
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
+            this.ClientSize = new System.Drawing.Size(624, 449);
+            this.Controls.Add(this.signedInPanel);
+            this.Controls.Add(this.loginPanel);
+            this.MaximumSize = new System.Drawing.Size(640, 488);
+            this.MinimumSize = new System.Drawing.Size(640, 488);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.loginPanel.ResumeLayout(false);
+            this.loginPanel.PerformLayout();
+            this.signedInPanel.ResumeLayout(false);
+            this.signedInPanel.PerformLayout();
+            this.createCarPanel.ResumeLayout(false);
+            this.createCarPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
+
         #endregion
 
-        private System.Windows.Forms.TextBox loginTextBox;
-        private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button signupButton;
+        private System.Windows.Forms.TextBox loginTextBox;
+        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.Panel loginPanel;
+        private System.Windows.Forms.Panel signedInPanel;
+        private System.Windows.Forms.Button createCarButton;
+        private System.Windows.Forms.Panel createCarPanel;
+        private System.Windows.Forms.TextBox carBrandTextBox;
+        private System.Windows.Forms.TextBox carNameTextBox;
+        private System.Windows.Forms.TextBox carYearTextBox;
+        private System.Windows.Forms.Button createListingButton;
+        private System.Windows.Forms.TextBox carPriceTextBox;
+        private System.Windows.Forms.TextBox carOdoTextBox;
+        private System.Windows.Forms.Label userNameLabel;
     }
 }
 
