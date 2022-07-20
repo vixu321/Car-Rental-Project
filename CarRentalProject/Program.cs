@@ -31,6 +31,7 @@ namespace CarRentalProject
             string line;
             int i = 0;
             string path = @"C:\Users\vixu1\source\repos\Car-Rental-Project\logins.txt";
+            //TODO: This is for debugging purposes only, de-comment for the proper functionality
             /*
                         //Make filestream for reading the file
                         FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);

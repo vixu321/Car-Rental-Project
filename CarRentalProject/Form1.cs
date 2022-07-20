@@ -160,6 +160,7 @@ namespace CarRentalProject
 
             panel.Controls.Add(deleteListingButton);
 
+            //Poor solution, no easier way to do it
             textBoxes[0].Text = car.name;
             textBoxes[1].Text = car.brand;
             textBoxes[2].Text = car.year;
