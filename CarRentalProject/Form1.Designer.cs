@@ -45,6 +45,7 @@ namespace CarRentalProject
             this.carBrandTextBox = new System.Windows.Forms.TextBox();
             this.carNameTextBox = new System.Windows.Forms.TextBox();
             this.createCarButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.loginPanel.SuspendLayout();
             this.signedInPanel.SuspendLayout();
             this.createCarPanel.SuspendLayout();
@@ -214,11 +215,22 @@ namespace CarRentalProject
             this.createCarButton.UseVisualStyleBackColor = false;
             this.createCarButton.Click += new System.EventHandler(this.createCarButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(528, 403);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
             this.ClientSize = new System.Drawing.Size(624, 449);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.signedInPanel);
             this.Controls.Add(this.loginPanel);
             this.MaximumSize = new System.Drawing.Size(640, 488);
@@ -253,6 +265,7 @@ namespace CarRentalProject
         private System.Windows.Forms.TextBox carOdoTextBox;
         private System.Windows.Forms.Label userNameLabel;
         private System.Windows.Forms.Button selectCarImageButton;
+        private System.Windows.Forms.Button button1;
     }
 }
 

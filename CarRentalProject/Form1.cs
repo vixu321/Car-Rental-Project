@@ -81,7 +81,12 @@ namespace CarRentalProject
 
         private void createListingButton_Click(object sender, EventArgs e)
         {
-            Car newCar = new Car(carNameTextBox.Text, carBrandTextBox.Text, carYearTextBox.Text, carOdoTextBox.Text, carPriceTextBox.Text);
+            Car newCar = new Car(carNameTextBox.Text, carBrandTextBox.Text, carYearTextBox.Text, carOdoTextBox.Text, carPriceTextBox.Text, carImageBitmap);
+            if(carNameTextBox.Text == "" || carBrandTextBox.Text == "" || carYearTextBox.Text == "" || carOdoTextBox.Text == "" || carPriceTextBox.Text == "" || carImageBitmap == null)
+            {
+                MessageBox.Show("Some car info is missing!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             createNewCarPanel(carsMade, newCar);
             visiblePanel.Visible = false;
             visiblePanel = basePanel;
@@ -89,6 +94,7 @@ namespace CarRentalProject
         }
 
         Panel[] panels = new Panel[18];
+        Car[] cars = new Car[18];
 
         private int yplace = 0;
         private int xplace = 0;
@@ -124,7 +130,7 @@ namespace CarRentalProject
             carImage.Location = new Point(10, 10);
             carImage.Size = new Size(104, 60);
             carImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            carImage.Image = carImageBitmap;
+            carImage.Image = car.image;
 
             panel.Controls.Add(carImage);
 
@@ -163,6 +169,7 @@ namespace CarRentalProject
             textBoxes[5].Text = panel.Name;
 
             panels[carsMade] = panel;
+            cars[carsMade] = car;
         }
 
         void deleteListingButton_Click(object sender, EventArgs e, Panel panel)
@@ -178,13 +185,18 @@ namespace CarRentalProject
             //Dispose of the deleted panel, free the array index
             panels[position].Dispose();
             panels[position] = null;
+            cars[position] = null;
 
             //Set the array to the proper order
             for(int i = position; i<carsMade-1; i++)
             {
                 panels[i] = panels[i + 1];
                 panels[i].Name = i.ToString();
+                cars[i] = cars[i + 1];
             }
+            //Free the last listing in array (its moved to the second to last)
+            panels[carsMade - 1] = null;
+            cars[carsMade - 1] = null;
 
             carsMade -= 1;
 
@@ -207,7 +219,45 @@ namespace CarRentalProject
         {
             //The listing info is saved into a .txt file
             //The file needs all the info from the panel saved to it
+
+            string path = @"..\carsSaveFile.txt";
             
+            //Create the file if it doesnt already exist
+            if (File.Exists(path) != true)
+            {
+                FileStream temp = File.Create(path);
+                temp.Close();
+            }
+
+            //Make the SavedImages file empty
+            if (Directory.Exists(@"..\SavedImages") == true)
+            {
+                Directory.Delete(@"..\SavedImages", true);
+                Directory.CreateDirectory(@"..\SavedImages");
+            }
+            else
+            {
+                Directory.CreateDirectory(@"..\SavedImages");
+            }
+
+            FileStream fsWrite = new FileStream(path, FileMode.Create, FileAccess.Write);
+
+            using (StreamWriter sw = new StreamWriter(fsWrite))
+            {
+                //Write the cars data to file
+                for (int i = 0; i < carsMade; i++)
+                {
+                    sw.WriteLine(cars[i].name + ";" + cars[i].brand + ";" + cars[i].year + ";" + cars[i].odometer + ";" + cars[i].pricePerHour);
+                    //Save the car iamge to SavedImages file
+                    cars[i].image.Save(@"..\SavedImages\" + (i + 1).ToString() + ".png");
+                }
+
+                MessageBox.Show("Successfully saved!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
+            fsWrite.Close();
+
         }
 
         private void selectCarImageButton_Click(object sender, EventArgs e)
@@ -223,6 +273,9 @@ namespace CarRentalProject
             selectCarImageButton.Text = Path.GetFileName(open.FileName);
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            savePanels();
+        }
     }
 }
