@@ -37,6 +37,7 @@ namespace CarRentalProject
             this.signedInPanel = new System.Windows.Forms.Panel();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.createCarPanel = new System.Windows.Forms.Panel();
+            this.selectCarImageButton = new System.Windows.Forms.Button();
             this.createListingButton = new System.Windows.Forms.Button();
             this.carPriceTextBox = new System.Windows.Forms.TextBox();
             this.carOdoTextBox = new System.Windows.Forms.TextBox();
@@ -75,7 +76,6 @@ namespace CarRentalProject
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(100, 23);
             this.loginTextBox.TabIndex = 2;
-            this.loginTextBox.TextChanged += new System.EventHandler(this.loginTextBox_TextChanged);
             // 
             // passwordTextBox
             // 
@@ -84,7 +84,6 @@ namespace CarRentalProject
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(100, 23);
             this.passwordTextBox.TabIndex = 3;
-            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // loginPanel
             // 
@@ -96,7 +95,6 @@ namespace CarRentalProject
             this.loginPanel.Name = "loginPanel";
             this.loginPanel.Size = new System.Drawing.Size(246, 192);
             this.loginPanel.TabIndex = 4;
-            this.loginPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.loginPanel_Paint);
             // 
             // signedInPanel
             // 
@@ -118,11 +116,11 @@ namespace CarRentalProject
             this.userNameLabel.Size = new System.Drawing.Size(38, 15);
             this.userNameLabel.TabIndex = 7;
             this.userNameLabel.Text = "label1";
-            this.userNameLabel.Click += new System.EventHandler(this.userNameLabel_Click);
             // 
             // createCarPanel
             // 
             this.createCarPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.createCarPanel.Controls.Add(this.selectCarImageButton);
             this.createCarPanel.Controls.Add(this.createListingButton);
             this.createCarPanel.Controls.Add(this.carPriceTextBox);
             this.createCarPanel.Controls.Add(this.carOdoTextBox);
@@ -131,14 +129,23 @@ namespace CarRentalProject
             this.createCarPanel.Controls.Add(this.carNameTextBox);
             this.createCarPanel.Location = new System.Drawing.Point(7, 54);
             this.createCarPanel.Name = "createCarPanel";
-            this.createCarPanel.Size = new System.Drawing.Size(109, 184);
+            this.createCarPanel.Size = new System.Drawing.Size(109, 279);
             this.createCarPanel.TabIndex = 2;
             this.createCarPanel.Visible = false;
-            this.createCarPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.createCarPanel_Paint);
+            // 
+            // selectCarImageButton
+            // 
+            this.selectCarImageButton.Location = new System.Drawing.Point(4, 151);
+            this.selectCarImageButton.Name = "selectCarImageButton";
+            this.selectCarImageButton.Size = new System.Drawing.Size(100, 23);
+            this.selectCarImageButton.TabIndex = 6;
+            this.selectCarImageButton.Text = "Select Image";
+            this.selectCarImageButton.UseVisualStyleBackColor = true;
+            this.selectCarImageButton.Click += new System.EventHandler(this.selectCarImageButton_Click);
             // 
             // createListingButton
             // 
-            this.createListingButton.Location = new System.Drawing.Point(17, 153);
+            this.createListingButton.Location = new System.Drawing.Point(17, 180);
             this.createListingButton.Name = "createListingButton";
             this.createListingButton.Size = new System.Drawing.Size(75, 23);
             this.createListingButton.TabIndex = 5;
@@ -150,46 +157,51 @@ namespace CarRentalProject
             // 
             this.carPriceTextBox.BackColor = System.Drawing.Color.LavenderBlush;
             this.carPriceTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.carPriceTextBox.Location = new System.Drawing.Point(3, 124);
+            this.carPriceTextBox.Location = new System.Drawing.Point(4, 122);
             this.carPriceTextBox.Name = "carPriceTextBox";
             this.carPriceTextBox.Size = new System.Drawing.Size(100, 23);
             this.carPriceTextBox.TabIndex = 4;
+            this.carPriceTextBox.Text = "Price/h";
             // 
             // carOdoTextBox
             // 
             this.carOdoTextBox.BackColor = System.Drawing.Color.LavenderBlush;
             this.carOdoTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.carOdoTextBox.Location = new System.Drawing.Point(3, 95);
+            this.carOdoTextBox.Location = new System.Drawing.Point(4, 93);
             this.carOdoTextBox.Name = "carOdoTextBox";
             this.carOdoTextBox.Size = new System.Drawing.Size(100, 23);
             this.carOdoTextBox.TabIndex = 3;
+            this.carOdoTextBox.Text = "Odometer";
             // 
             // carYearTextBox
             // 
             this.carYearTextBox.BackColor = System.Drawing.Color.LavenderBlush;
             this.carYearTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.carYearTextBox.Location = new System.Drawing.Point(3, 66);
+            this.carYearTextBox.Location = new System.Drawing.Point(4, 64);
             this.carYearTextBox.Name = "carYearTextBox";
             this.carYearTextBox.Size = new System.Drawing.Size(100, 23);
             this.carYearTextBox.TabIndex = 2;
+            this.carYearTextBox.Text = "Year";
             // 
             // carBrandTextBox
             // 
             this.carBrandTextBox.BackColor = System.Drawing.Color.LavenderBlush;
             this.carBrandTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.carBrandTextBox.Location = new System.Drawing.Point(3, 37);
+            this.carBrandTextBox.Location = new System.Drawing.Point(4, 35);
             this.carBrandTextBox.Name = "carBrandTextBox";
             this.carBrandTextBox.Size = new System.Drawing.Size(100, 23);
             this.carBrandTextBox.TabIndex = 1;
+            this.carBrandTextBox.Text = "Brand";
             // 
             // carNameTextBox
             // 
             this.carNameTextBox.BackColor = System.Drawing.Color.LavenderBlush;
             this.carNameTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.carNameTextBox.Location = new System.Drawing.Point(3, 5);
+            this.carNameTextBox.Location = new System.Drawing.Point(4, 3);
             this.carNameTextBox.Name = "carNameTextBox";
             this.carNameTextBox.Size = new System.Drawing.Size(100, 23);
             this.carNameTextBox.TabIndex = 0;
+            this.carNameTextBox.Text = "Name";
             // 
             // createCarButton
             // 
@@ -240,6 +252,7 @@ namespace CarRentalProject
         private System.Windows.Forms.TextBox carPriceTextBox;
         private System.Windows.Forms.TextBox carOdoTextBox;
         private System.Windows.Forms.Label userNameLabel;
+        private System.Windows.Forms.Button selectCarImageButton;
     }
 }
 

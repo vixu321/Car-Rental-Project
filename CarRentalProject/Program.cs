@@ -30,7 +30,7 @@ namespace CarRentalProject
             string[] data = new string[100];
             string line;
             int i = 0;
-            string path = @"C:\Users\vixu1\source\repos\Car-Rental-Project\logins.txt";
+            string path = @"..\logins.txt";
             //TODO: This is for debugging purposes only, de-comment for the proper functionality
             /*
                         //Make filestream for reading the file
@@ -83,7 +83,13 @@ namespace CarRentalProject
 
             string[] data = new string[100];
             //Make the path for the logins file
-            string path = @"C:\Users\vixu1\source\repos\Car-Rental-Project\logins.txt";
+            string path = @"..\logins.txt";
+            if (File.Exists(path) != true)
+            {
+                FileStream tempFile = File.Create(path);
+                tempFile.Close();
+            }
+
             FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
             string line;
             int i = 0;
