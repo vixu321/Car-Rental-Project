@@ -31,7 +31,7 @@ namespace CarRentalProject
             string line;
             int i = 0;
             string path = @"..\logins.txt";
-            //TODO: This is for debugging purposes only, de-comment for the proper functionality
+            //This is for debugging purposes only, de-comment for the proper functionality
             /*
                         //Make filestream for reading the file
                         FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);

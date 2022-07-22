@@ -35,6 +35,8 @@ namespace CarRentalProject
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.loginPanel = new System.Windows.Forms.Panel();
             this.signedInPanel = new System.Windows.Forms.Panel();
+            this.loadListingsButton = new System.Windows.Forms.Button();
+            this.saveListingsButton = new System.Windows.Forms.Button();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.createCarPanel = new System.Windows.Forms.Panel();
             this.selectCarImageButton = new System.Windows.Forms.Button();
@@ -45,7 +47,6 @@ namespace CarRentalProject
             this.carBrandTextBox = new System.Windows.Forms.TextBox();
             this.carNameTextBox = new System.Windows.Forms.TextBox();
             this.createCarButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.loginPanel.SuspendLayout();
             this.signedInPanel.SuspendLayout();
             this.createCarPanel.SuspendLayout();
@@ -99,6 +100,8 @@ namespace CarRentalProject
             // 
             // signedInPanel
             // 
+            this.signedInPanel.Controls.Add(this.loadListingsButton);
+            this.signedInPanel.Controls.Add(this.saveListingsButton);
             this.signedInPanel.Controls.Add(this.userNameLabel);
             this.signedInPanel.Controls.Add(this.createCarPanel);
             this.signedInPanel.Controls.Add(this.createCarButton);
@@ -107,6 +110,26 @@ namespace CarRentalProject
             this.signedInPanel.Size = new System.Drawing.Size(126, 419);
             this.signedInPanel.TabIndex = 5;
             this.signedInPanel.Visible = false;
+            // 
+            // loadListingsButton
+            // 
+            this.loadListingsButton.Location = new System.Drawing.Point(10, 368);
+            this.loadListingsButton.Name = "loadListingsButton";
+            this.loadListingsButton.Size = new System.Drawing.Size(84, 23);
+            this.loadListingsButton.TabIndex = 8;
+            this.loadListingsButton.Text = "Load Listings";
+            this.loadListingsButton.UseVisualStyleBackColor = true;
+            this.loadListingsButton.Click += new System.EventHandler(this.loadListingsButton_Click);
+            // 
+            // saveListingsButton
+            // 
+            this.saveListingsButton.Location = new System.Drawing.Point(10, 339);
+            this.saveListingsButton.Name = "saveListingsButton";
+            this.saveListingsButton.Size = new System.Drawing.Size(84, 23);
+            this.saveListingsButton.TabIndex = 6;
+            this.saveListingsButton.Text = "Save Listings";
+            this.saveListingsButton.UseVisualStyleBackColor = true;
+            this.saveListingsButton.Click += new System.EventHandler(this.saveListingsButton_Click);
             // 
             // userNameLabel
             // 
@@ -215,22 +238,11 @@ namespace CarRentalProject
             this.createCarButton.UseVisualStyleBackColor = false;
             this.createCarButton.Click += new System.EventHandler(this.createCarButton_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(528, 403);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
             this.ClientSize = new System.Drawing.Size(624, 449);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.signedInPanel);
             this.Controls.Add(this.loginPanel);
             this.MaximumSize = new System.Drawing.Size(640, 488);
@@ -265,7 +277,8 @@ namespace CarRentalProject
         private System.Windows.Forms.TextBox carOdoTextBox;
         private System.Windows.Forms.Label userNameLabel;
         private System.Windows.Forms.Button selectCarImageButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveListingsButton;
+        private System.Windows.Forms.Button loadListingsButton;
     }
 }
 

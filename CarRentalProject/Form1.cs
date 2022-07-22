@@ -74,15 +74,17 @@ namespace CarRentalProject
             }
 
             //Reset image button
-            carImageBitmap = null;
+            tempBitmap = null;
             selectCarImageButton.Text = "Select Image";
         }
 
 
         private void createListingButton_Click(object sender, EventArgs e)
         {
-            Car newCar = new Car(carNameTextBox.Text, carBrandTextBox.Text, carYearTextBox.Text, carOdoTextBox.Text, carPriceTextBox.Text, carImageBitmap);
-            if(carNameTextBox.Text == "" || carBrandTextBox.Text == "" || carYearTextBox.Text == "" || carOdoTextBox.Text == "" || carPriceTextBox.Text == "" || carImageBitmap == null)
+            carImageBitmaps[carsMade] = tempBitmap;
+            tempBitmap = null;
+            Car newCar = new Car(carNameTextBox.Text, carBrandTextBox.Text, carYearTextBox.Text, carOdoTextBox.Text, carPriceTextBox.Text, carImageBitmaps[carsMade]);
+            if(carNameTextBox.Text == "" || carBrandTextBox.Text == "" || carYearTextBox.Text == "" || carOdoTextBox.Text == "" || carPriceTextBox.Text == "" || carImageBitmaps[carsMade] == null)
             {
                 MessageBox.Show("Some car info is missing!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -95,10 +97,12 @@ namespace CarRentalProject
 
         Panel[] panels = new Panel[18];
         Car[] cars = new Car[18];
+        Bitmap[] carImageBitmaps = new Bitmap[18];
+        Bitmap tempBitmap;
+
 
         private int yplace = 0;
         private int xplace = 0;
-        Bitmap carImageBitmap;
         public void createNewCarPanel(int carsMade, Car car)
         {
             int numOfInfoBoxes = 6;
@@ -174,10 +178,15 @@ namespace CarRentalProject
 
         void deleteListingButton_Click(object sender, EventArgs e, Panel panel)
         {
+            deleteListing(panel);
+        }
+
+        void deleteListing(Panel panel)
+        {
             int position = Int32.Parse(panel.Name);
 
             //Change locations of the panels
-            for (int i = carsMade-1; i>position; i--)
+            for (int i = carsMade - 1; i > position; i--)
             {
                 panels[i].Location = panels[i - 1].Location;
             }
@@ -188,7 +197,7 @@ namespace CarRentalProject
             cars[position] = null;
 
             //Set the array to the proper order
-            for(int i = position; i<carsMade-1; i++)
+            for (int i = position; i < carsMade - 1; i++)
             {
                 panels[i] = panels[i + 1];
                 panels[i].Name = i.ToString();
@@ -210,7 +219,6 @@ namespace CarRentalProject
             {
                 xplace -= 1;
             }
-
         }
 
 
@@ -218,27 +226,20 @@ namespace CarRentalProject
         void savePanels()
         {
             //The listing info is saved into a .txt file
-            //The file needs all the info from the panel saved to it
 
             string path = @"..\carsSaveFile.txt";
-            
+
             //Create the file if it doesnt already exist
             if (File.Exists(path) != true)
             {
                 FileStream temp = File.Create(path);
                 temp.Close();
             }
+            DirectoryInfo directory = new DirectoryInfo(@"..\SavedImages");
+            
+            Directory.CreateDirectory(@"..\SavedImages");
 
-            //Make the SavedImages file empty
-            if (Directory.Exists(@"..\SavedImages") == true)
-            {
-                Directory.Delete(@"..\SavedImages", true);
-                Directory.CreateDirectory(@"..\SavedImages");
-            }
-            else
-            {
-                Directory.CreateDirectory(@"..\SavedImages");
-            }
+
 
             FileStream fsWrite = new FileStream(path, FileMode.Create, FileAccess.Write);
 
@@ -247,9 +248,21 @@ namespace CarRentalProject
                 //Write the cars data to file
                 for (int i = 0; i < carsMade; i++)
                 {
-                    sw.WriteLine(cars[i].name + ";" + cars[i].brand + ";" + cars[i].year + ";" + cars[i].odometer + ";" + cars[i].pricePerHour);
+                    sw.WriteLine(cars[i].name);
+                    sw.WriteLine(cars[i].brand);
+                    sw.WriteLine(cars[i].year);
+                    sw.WriteLine(cars[i].odometer);
+                    sw.WriteLine(cars[i].pricePerHour);
+                    sw.WriteLine();
+
                     //Save the car iamge to SavedImages file
-                    cars[i].image.Save(@"..\SavedImages\" + (i + 1).ToString() + ".png");
+                    if(File.Exists(@"..\SavedImages\" + (i + 1).ToString() + ".png")){
+                        File.Delete(@"..\SavedImages\" + (i + 1).ToString() + ".png");
+                    }
+
+                    Bitmap test =(Bitmap)cars[i].image.Clone();
+                    test.Save(@"..\SavedImages\" + (i + 1).ToString() + ".png");
+                    test.Dispose();
                 }
 
                 MessageBox.Show("Successfully saved!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -260,6 +273,78 @@ namespace CarRentalProject
 
         }
 
+        void loadSave()
+        {
+            string path = @"..\carsSaveFile.txt";
+            FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
+            string line;
+            int index = 0;
+            int iteration = 0;
+            string Name="", Brand="", Year="", Odo="", Price="";
+
+            //Delete existing panels
+            if (panels[0] != null)
+            {
+                for(int i = 0; i<carsMade+1; i++) {
+                    deleteListing(panels[0]);
+                }
+            }
+            
+            //Set the copy of the original fiels to the bitmap array
+            //Cant use Bitmap.Clone() because it maintains the memory stream, which later on makes problems with save function
+            for(int i = 0; i<carsMade+1; i++)
+            {
+                Bitmap original = new Bitmap(@"..\SavedImages\" + (i + 1).ToString() + ".png");
+                carImageBitmaps[i] = new Bitmap(original);
+                original.Dispose();
+            }
+
+
+            
+            using (StreamReader sr = new StreamReader(fsRead))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    switch (iteration)
+                    {
+                        case 0:
+                            Name = line;
+                            iteration++;
+                            break;
+                        case 1:
+                            Brand = line;
+                            iteration++;
+                            break;
+                        case 2:
+                            Year = line;
+                            iteration++;
+                            break;
+                        case 3:
+                            Odo = line;
+                            iteration++;
+                            break;
+                        case 4:
+                            Price = line;
+                            iteration++;
+                            break;
+                        case 5:
+                            //Create Car class and panels with the data from the file
+                            Car car = new Car(Name, Brand, Year, Odo, Price, carImageBitmaps[index]);
+                            cars[index] = car;
+                            createNewCarPanel(index, car);
+                            iteration = 0;
+                            index++;
+                            break;
+                    }
+                    
+                }
+
+            }
+            carsMade = index;
+            fsRead.Close();
+        }
+
+
         private void selectCarImageButton_Click(object sender, EventArgs e)
         {
             //Create dialog box so the user can select the correct image
@@ -268,12 +353,18 @@ namespace CarRentalProject
 
             if (open.ShowDialog() == DialogResult.OK)
             {
-                carImageBitmap = new Bitmap(open.FileName);
+                tempBitmap = new Bitmap(open.FileName);
             }
             selectCarImageButton.Text = Path.GetFileName(open.FileName);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void loadListingsButton_Click(object sender, EventArgs e)
+        {
+            loadSave();
+        }
+
+        private void saveListingsButton_Click(object sender, EventArgs e)
         {
             savePanels();
         }
