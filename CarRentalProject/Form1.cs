@@ -98,6 +98,13 @@ namespace CarRentalProject
             carListings.deleteListing(this, panel);
         }
 
+        public EventHandler deleteclick;
+        public void deleteListingClick(Panel panel)
+        {
+            deleteclick = new EventHandler((sender, e) => deleteListingButton_Click(sender, e, panel));
+        }
+
+
         void selectCarImageButton_Click(object sender, EventArgs e)
         {
             carListings.selectCarImage(this);
@@ -112,6 +119,7 @@ namespace CarRentalProject
         {
             saveAndLoad.savePanels(this);
         }
+
 
         //Functions for better textBox usability
         private void textBoxClickedErase(TextBox textBox)
@@ -158,7 +166,6 @@ namespace CarRentalProject
         {
 
         }
-
 
     }
 }

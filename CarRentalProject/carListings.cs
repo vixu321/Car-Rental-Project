@@ -84,8 +84,9 @@ namespace CarRentalProject
 
             panel.Name = carsMade.ToString();
 
+            form.deleteListingClick(panel);
             //Set the click event, send panel through the arguments
-            deleteListingButton.Click += new EventHandler((sender, e) => form.deleteListingButton_Click(sender, e, panel));
+            deleteListingButton.Click += form.deleteclick;
 
             panel.Controls.Add(deleteListingButton);
 

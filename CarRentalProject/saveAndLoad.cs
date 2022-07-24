@@ -62,12 +62,13 @@ namespace CarRentalProject
         public static void loadSave(Form1 form, bool showNotification)
         {
             string path = @"..\carsSaveFile.txt";
+
             if (!File.Exists(path))
             {
                 MessageBox.Show("No save file found!", "Loading error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
+
             string line;
             int index = 0;
             int iteration = 0;
@@ -78,18 +79,36 @@ namespace CarRentalProject
                 MessageBox.Show("No save file found!", "Loading error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            
+            //Create filestream to count lines
+            FileStream fsLineCount = new FileStream(path, FileMode.Open, FileAccess.Read);
+            int linecount = 0;
+            using(StreamReader sr = new StreamReader(fsLineCount))
+            {
+                while((line = sr.ReadLine()) != null)
+                {
+                    //Increase linecount
+                    linecount++;
+                }
+                sr.Close();
+            }
+            //Cars made is equal to linecount/6, because each car stores 5 lanes of data + a new line symbol
+            form.carsMade = linecount / 6;
+            fsLineCount.Close();
+            
 
             //Delete existing panels
             if (form.panels[0] != null)
             {
-                for (int i = 0; i < form.carsMade + 1; i++)
+                for (int i = 0; i < linecount/6 ; i++)
                 {
-                    form.deleteListing(form.panels[0]);
+                    carListings.deleteListing(form, form.panels[0]);
+
                 }
             }
 
 
-
+            FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
 
             //Write the lines from file to strings, then create Car class with those strings
             using (StreamReader sr = new StreamReader(fsRead))
@@ -122,7 +141,6 @@ namespace CarRentalProject
                             //Retrieve the image for car class, cant use Bitmap.Clone() because it maintains memory stream, which is a problem in the save method
                             Bitmap original = new Bitmap(@"..\SavedImages\" + (index + 1).ToString() + ".png");
                             form.carImageBitmaps[index] = new Bitmap(original);
-                            System.Diagnostics.Debug.WriteLine("LOADING IMAGE");
                             original.Dispose();
                             //Create Car class and panels with the data from the file
                             Car car = new Car(Name, Brand, Year, Odo, Price, form.carImageBitmaps[index]);
@@ -137,6 +155,7 @@ namespace CarRentalProject
 
             }
             form.carsMade = index;
+            
             fsRead.Close();
             //Set the copy of the original fiels to the bitmap array
             //Cant use Bitmap.Clone() because it maintains the memory stream, which later on makes problems with save function
