@@ -79,34 +79,18 @@ namespace CarRentalProject
                 MessageBox.Show("No save file found!", "Loading error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-            //Create filestream to count lines
-            FileStream fsLineCount = new FileStream(path, FileMode.Open, FileAccess.Read);
-            int linecount = 0;
-            using(StreamReader sr = new StreamReader(fsLineCount))
-            {
-                while((line = sr.ReadLine()) != null)
-                {
-                    //Increase linecount
-                    linecount++;
-                }
-                sr.Close();
-            }
-            //Cars made is equal to linecount/6, because each car stores 5 lanes of data + a new line symbol
-            form.carsMade = linecount / 6;
-            fsLineCount.Close();
-            
+
+            int temp = form.carsMade;
 
             //Delete existing panels
             if (form.panels[0] != null)
             {
-                for (int i = 0; i < linecount/6 ; i++)
+                for (int i = 0; i < temp; i++)
                 {
                     carListings.deleteListing(form, form.panels[0]);
-
                 }
+                
             }
-
 
             FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
 
@@ -145,9 +129,10 @@ namespace CarRentalProject
                             //Create Car class and panels with the data from the file
                             Car car = new Car(Name, Brand, Year, Odo, Price, form.carImageBitmaps[index]);
                             form.cars[index] = car;
+                            System.Diagnostics.Debug.WriteLine("Creating car panel with name: " + Name + ", at index: " + index);
                             carListings.createNewCarPanel(index, car, form);
-                            iteration = 0;
                             index++;
+                            iteration = 0;
                             break;
                     }
 

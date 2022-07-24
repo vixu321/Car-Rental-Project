@@ -103,13 +103,14 @@ namespace CarRentalProject
         }
 
 
-        public static void deleteListing(Form1 form,Panel panel)
+        public static void deleteListing(Form1 form, Panel panel)
         {
             int position = Int32.Parse(panel.Name);
-
+            //System.Diagnostics.Debug.WriteLine("Deleteing position: " + position+", cars made: "+form.carsMade);
             //Change locations of the panels
             for (int i = form.carsMade - 1; i > position; i--)
             {
+                //System.Diagnostics.Debug.WriteLine("Changing position: " + i + ", with: " + (i-1));
                 form.panels[i].Location = form.panels[i - 1].Location;
             }
 
@@ -141,6 +142,7 @@ namespace CarRentalProject
             {
                 form.xplace -= 1;
             }
+            //System.Diagnostics.Debug.WriteLine("Cars made after deleting: " + form.carsMade);
         }
 
         public static void selectCarImage(Form1 form)
