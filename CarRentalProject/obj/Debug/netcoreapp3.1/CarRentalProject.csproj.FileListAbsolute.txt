@@ -22,6 +22,7 @@ C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\bin\Debug\netcor
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\bin\Debug\netcoreapp3.1\CarRentalProject.pdb
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.csproj.AssemblyReference.cache
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.Form1.resources
+C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.Properties.Resources.resources
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.csproj.GenerateResource.cache
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.AssemblyInfoInputs.cache
@@ -30,4 +31,3 @@ C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcor
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.dll
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.pdb
 C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.genruntimeconfig.cache
-C:\Users\vixu1\source\repos\Car-Rental-Project\CarRentalProject\obj\Debug\netcoreapp3.1\CarRentalProject.Properties.Resources.resources
