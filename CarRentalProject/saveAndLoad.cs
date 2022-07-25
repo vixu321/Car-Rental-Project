@@ -129,8 +129,8 @@ namespace CarRentalProject
                             //Create Car class and panels with the data from the file
                             Car car = new Car(Name, Brand, Year, Odo, Price, form.carImageBitmaps[index]);
                             form.cars[index] = car;
-                            System.Diagnostics.Debug.WriteLine("Creating car panel with name: " + Name + ", at index: " + index);
-                            carListings.createNewCarPanel(index, car, form);
+                            System.Diagnostics.Debug.WriteLine("Creating car panel with name: " + Name + ", at index: " + index + "At x: "+form.xplace +"; y:"+form.yplace);
+                            carListings.createNewCarPanel(index, car, form, false);
                             index++;
                             iteration = 0;
                             break;

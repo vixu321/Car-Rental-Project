@@ -20,6 +20,10 @@ namespace CarRentalProject
         private static Label signedInLabel;
         public static string name;
         public  int carsMade = 0;
+        public float userBalance = 0;
+
+        //Change this variable to change number of listings in a row
+        public int numOfCarsInRow = 5;
 
         public Form1()
         {
@@ -39,7 +43,7 @@ namespace CarRentalProject
 
         private void loginButton_Click_1(object sender, EventArgs e)
         {
-            logInSignUp.logIn(loginTextBox, passwordTextBox, this);
+            logInSignUp.logInUser(loginTextBox, passwordTextBox, this);
         }
 
         private void adminLogInButton_Click(object sender, EventArgs e)
@@ -53,8 +57,43 @@ namespace CarRentalProject
             visiblePanel.Visible = false;
             visiblePanel = basePanel;
             visiblePanel.Visible = true;
-            signedInLabel.Text = "Witaj " + name +"!";
+            signedInLabel.Text = "Welcome " + name +"!";
             saveAndLoad.loadSave(this, false);
+        }
+
+        public void signedInUser()
+        {
+            visiblePanel.Visible = false;
+            visiblePanel = userLoggedInPanel;
+            visiblePanel.Visible = true;
+            signedInUserLabel.Text = "Welcome " + name + "!";
+            accountBalanceLabel.Text = "Balance: $"+userBalance.ToString();
+            saveAndLoad.loadSave(this, false);
+            carListings.userSideListings(this);
+        }
+
+        private void logOutButton_Click(object sender, EventArgs e)
+        {
+            logOut();
+        }
+
+        private void logOutButtonTwo_Click(object sender, EventArgs e)
+        {
+            logOut();
+        }
+
+        private void logOut()
+        {
+            visiblePanel.Visible = false;
+            visiblePanel = loginPanel;
+            visiblePanel.Visible = true;
+            int temp = carsMade;
+            for (int i = 0; i < temp; i++)
+            {
+                carListings.deleteListing(this, panels[0]);
+            }
+            passwordTextBox.Text = "password";
+            loginTextBox.Text = "Login";
         }
 
 
@@ -83,16 +122,21 @@ namespace CarRentalProject
             carListings.createCarListing(this);
         }
 
-        public Panel[] panels = new Panel[18];
-        public Car[] cars = new Car[18];
-        public Bitmap[] carImageBitmaps = new Bitmap[18];
+        public Panel[] panels = new Panel[25];
+        public Car[] cars = new Car[25];
+        public Bitmap[] carImageBitmaps = new Bitmap[25];
+        public Panel[] rentedPanels = new Panel[25];
+        public Car[] rentedCars = new Car[25];
         public Bitmap tempBitmap;
-
+        public int carsRentedNumber = 0;
 
         public int yplace = 0;
         public int xplace = 0;
+        public int yplaceRented = 0;
+        public int xplaceRented = 0;
         
-
+        
+        //Event handler with lambda function for deleteListing button, has to be done this way to send the panel element through the arguments
         void deleteListingButton_Click(object sender, EventArgs e, Panel panel)
         {
             carListings.deleteListing(this, panel);
@@ -103,6 +147,32 @@ namespace CarRentalProject
         {
             deleteclick = new EventHandler((sender, e) => deleteListingButton_Click(sender, e, panel));
         }
+
+        //Event handler with lambda function for rentCar button, has to be done this way to send the panel element through the arguments
+        void rentCarButton_Click(object sender, EventArgs e, Panel panel)
+        {
+            carListings.rentCar(this, panel);
+        }
+        public EventHandler rentclick;
+        public void rentCarClick(Panel panel)
+        {
+            rentclick = new EventHandler((sender, e) => rentCarButton_Click(sender, e, panel));
+        }
+
+
+
+        //Event handler with lambda functon for when the hours counter when renting is changed
+        void hoursCounter_ValueChanged(object sender, EventArgs e, NumericUpDown numeric, int position)
+        {
+            carListings.hoursChangedControl(this, numeric, position);
+        }
+        public EventHandler hoursChanged;
+        public void hoursChangedValue(NumericUpDown numeric, int position)
+        {
+            hoursChanged = new EventHandler((sender, e) => hoursCounter_ValueChanged(sender, e, numeric, position));
+        }
+
+
 
 
         void selectCarImageButton_Click(object sender, EventArgs e)
@@ -162,10 +232,28 @@ namespace CarRentalProject
             textBoxClickedErase(carOdoTextBox);
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        private void numericOnlyTextBox(object sender, KeyPressEventArgs e)
         {
+            //Make the text box with this even handler only accept numbers as inputs (with decimal point)
+            if(char.IsControl(e.KeyChar)==false && char.IsDigit(e.KeyChar)==false && e.KeyChar!='.')
+            {
+                e.Handled = true;
+            }
 
+            if((e.KeyChar=='.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
 
+        private void rentedCarsPanelButton_Click(object sender, EventArgs e)
+        {
+            carListings.showRentedCars(this);
+        }
+
+        private void carListingsButton_Click(object sender, EventArgs e)
+        {
+            carListings.showListings(this);
+        }
     }
 }

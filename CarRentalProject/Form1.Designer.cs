@@ -36,8 +36,9 @@ namespace CarRentalProject
             this.loginPanel = new System.Windows.Forms.Panel();
             this.adminLogInButton = new System.Windows.Forms.Button();
             this.signedInPanel = new System.Windows.Forms.Panel();
-            this.loadListingsButton = new System.Windows.Forms.Button();
+            this.logOutButton = new System.Windows.Forms.Button();
             this.saveListingsButton = new System.Windows.Forms.Button();
+            this.loadListingsButton = new System.Windows.Forms.Button();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.createCarPanel = new System.Windows.Forms.Panel();
             this.selectCarImageButton = new System.Windows.Forms.Button();
@@ -48,19 +49,29 @@ namespace CarRentalProject
             this.carBrandTextBox = new System.Windows.Forms.TextBox();
             this.carNameTextBox = new System.Windows.Forms.TextBox();
             this.createCarButton = new System.Windows.Forms.Button();
+            this.userLoggedInPanel = new System.Windows.Forms.Panel();
+            this.carListingsButton = new System.Windows.Forms.Button();
+            this.rentedCarsPanelButton = new System.Windows.Forms.Button();
+            this.accountBalanceLabel = new System.Windows.Forms.Label();
+            this.logOutButtonTwo = new System.Windows.Forms.Button();
+            this.signedInUserLabel = new System.Windows.Forms.Label();
+            this.carListingsPanel = new System.Windows.Forms.Panel();
+            this.rentedCarsPanel = new System.Windows.Forms.Panel();
             this.loginPanel.SuspendLayout();
             this.signedInPanel.SuspendLayout();
             this.createCarPanel.SuspendLayout();
+            this.userLoggedInPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // loginButton
             // 
+            this.loginButton.BackColor = System.Drawing.Color.White;
             this.loginButton.Location = new System.Drawing.Point(21, 61);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 0;
             this.loginButton.Text = "Log in";
-            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.UseVisualStyleBackColor = false;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click_1);
             // 
             // signupButton
@@ -92,18 +103,18 @@ namespace CarRentalProject
             this.passwordTextBox.TabIndex = 3;
             this.passwordTextBox.Text = "Password";
             this.passwordTextBox.Click += new System.EventHandler(this.passwordTextBox_Click);
-            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // loginPanel
             // 
+            this.loginPanel.AutoSize = true;
             this.loginPanel.Controls.Add(this.adminLogInButton);
             this.loginPanel.Controls.Add(this.signupButton);
             this.loginPanel.Controls.Add(this.passwordTextBox);
             this.loginPanel.Controls.Add(this.loginButton);
             this.loginPanel.Controls.Add(this.loginTextBox);
-            this.loginPanel.Location = new System.Drawing.Point(224, 73);
+            this.loginPanel.Location = new System.Drawing.Point(350, 134);
             this.loginPanel.Name = "loginPanel";
-            this.loginPanel.Size = new System.Drawing.Size(121, 163);
+            this.loginPanel.Size = new System.Drawing.Size(121, 166);
             this.loginPanel.TabIndex = 4;
             // 
             // adminLogInButton
@@ -120,36 +131,54 @@ namespace CarRentalProject
             // 
             this.signedInPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(19)))), ((int)(((byte)(68)))));
             this.signedInPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.signedInPanel.Controls.Add(this.loadListingsButton);
+            this.signedInPanel.Controls.Add(this.logOutButton);
             this.signedInPanel.Controls.Add(this.saveListingsButton);
+            this.signedInPanel.Controls.Add(this.loadListingsButton);
             this.signedInPanel.Controls.Add(this.userNameLabel);
             this.signedInPanel.Controls.Add(this.createCarPanel);
             this.signedInPanel.Controls.Add(this.createCarButton);
-            this.signedInPanel.Location = new System.Drawing.Point(-5, -3);
+            this.signedInPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.signedInPanel.Location = new System.Drawing.Point(0, 0);
+            this.signedInPanel.Margin = new System.Windows.Forms.Padding(0);
             this.signedInPanel.Name = "signedInPanel";
-            this.signedInPanel.Size = new System.Drawing.Size(133, 455);
+            this.signedInPanel.Size = new System.Drawing.Size(133, 611);
             this.signedInPanel.TabIndex = 5;
             this.signedInPanel.Visible = false;
             // 
-            // loadListingsButton
+            // logOutButton
             // 
-            this.loadListingsButton.Location = new System.Drawing.Point(7, 418);
-            this.loadListingsButton.Name = "loadListingsButton";
-            this.loadListingsButton.Size = new System.Drawing.Size(84, 23);
-            this.loadListingsButton.TabIndex = 8;
-            this.loadListingsButton.Text = "Load Listings";
-            this.loadListingsButton.UseVisualStyleBackColor = true;
-            this.loadListingsButton.Click += new System.EventHandler(this.loadListingsButton_Click);
+            this.logOutButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.logOutButton.Location = new System.Drawing.Point(65, 3);
+            this.logOutButton.Name = "logOutButton";
+            this.logOutButton.Size = new System.Drawing.Size(61, 23);
+            this.logOutButton.TabIndex = 6;
+            this.logOutButton.Text = "Log out";
+            this.logOutButton.UseVisualStyleBackColor = true;
+            this.logOutButton.Click += new System.EventHandler(this.logOutButton_Click);
             // 
             // saveListingsButton
             // 
-            this.saveListingsButton.Location = new System.Drawing.Point(7, 389);
+            this.saveListingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveListingsButton.Location = new System.Drawing.Point(7, 545);
+            this.saveListingsButton.Margin = new System.Windows.Forms.Padding(0);
             this.saveListingsButton.Name = "saveListingsButton";
-            this.saveListingsButton.Size = new System.Drawing.Size(84, 23);
+            this.saveListingsButton.Size = new System.Drawing.Size(104, 23);
             this.saveListingsButton.TabIndex = 6;
             this.saveListingsButton.Text = "Save Listings";
             this.saveListingsButton.UseVisualStyleBackColor = true;
             this.saveListingsButton.Click += new System.EventHandler(this.saveListingsButton_Click);
+            // 
+            // loadListingsButton
+            // 
+            this.loadListingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.loadListingsButton.Location = new System.Drawing.Point(7, 577);
+            this.loadListingsButton.Margin = new System.Windows.Forms.Padding(0);
+            this.loadListingsButton.Name = "loadListingsButton";
+            this.loadListingsButton.Size = new System.Drawing.Size(104, 23);
+            this.loadListingsButton.TabIndex = 8;
+            this.loadListingsButton.Text = "Load Listings";
+            this.loadListingsButton.UseVisualStyleBackColor = true;
+            this.loadListingsButton.Click += new System.EventHandler(this.loadListingsButton_Click);
             // 
             // userNameLabel
             // 
@@ -171,7 +200,7 @@ namespace CarRentalProject
             this.createCarPanel.Controls.Add(this.carYearTextBox);
             this.createCarPanel.Controls.Add(this.carBrandTextBox);
             this.createCarPanel.Controls.Add(this.carNameTextBox);
-            this.createCarPanel.Location = new System.Drawing.Point(7, 54);
+            this.createCarPanel.Location = new System.Drawing.Point(7, 61);
             this.createCarPanel.Name = "createCarPanel";
             this.createCarPanel.Size = new System.Drawing.Size(109, 279);
             this.createCarPanel.TabIndex = 2;
@@ -207,6 +236,7 @@ namespace CarRentalProject
             this.carPriceTextBox.TabIndex = 4;
             this.carPriceTextBox.Text = "Price/h";
             this.carPriceTextBox.Click += new System.EventHandler(this.carPriceTextBox_Click);
+            this.carPriceTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericOnlyTextBox);
             // 
             // carOdoTextBox
             // 
@@ -218,6 +248,7 @@ namespace CarRentalProject
             this.carOdoTextBox.TabIndex = 3;
             this.carOdoTextBox.Text = "Odometer";
             this.carOdoTextBox.Click += new System.EventHandler(this.carOdoTextBox_Click);
+            this.carOdoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericOnlyTextBox);
             // 
             // carYearTextBox
             // 
@@ -229,6 +260,7 @@ namespace CarRentalProject
             this.carYearTextBox.TabIndex = 2;
             this.carYearTextBox.Text = "Year";
             this.carYearTextBox.Click += new System.EventHandler(this.carYearTextBox_Click);
+            this.carYearTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericOnlyTextBox);
             // 
             // carBrandTextBox
             // 
@@ -255,7 +287,7 @@ namespace CarRentalProject
             // createCarButton
             // 
             this.createCarButton.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.createCarButton.Location = new System.Drawing.Point(7, 25);
+            this.createCarButton.Location = new System.Drawing.Point(7, 32);
             this.createCarButton.Name = "createCarButton";
             this.createCarButton.Size = new System.Drawing.Size(109, 23);
             this.createCarButton.TabIndex = 1;
@@ -263,15 +295,100 @@ namespace CarRentalProject
             this.createCarButton.UseVisualStyleBackColor = false;
             this.createCarButton.Click += new System.EventHandler(this.createCarButton_Click);
             // 
+            // userLoggedInPanel
+            // 
+            this.userLoggedInPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(19)))), ((int)(((byte)(68)))));
+            this.userLoggedInPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.userLoggedInPanel.Controls.Add(this.carListingsButton);
+            this.userLoggedInPanel.Controls.Add(this.rentedCarsPanelButton);
+            this.userLoggedInPanel.Controls.Add(this.accountBalanceLabel);
+            this.userLoggedInPanel.Controls.Add(this.logOutButtonTwo);
+            this.userLoggedInPanel.Controls.Add(this.signedInUserLabel);
+            this.userLoggedInPanel.Location = new System.Drawing.Point(0, 0);
+            this.userLoggedInPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.userLoggedInPanel.Name = "userLoggedInPanel";
+            this.userLoggedInPanel.Size = new System.Drawing.Size(133, 607);
+            this.userLoggedInPanel.TabIndex = 9;
+            this.userLoggedInPanel.Visible = false;
+            // 
+            // carListingsButton
+            // 
+            this.carListingsButton.Location = new System.Drawing.Point(3, 79);
+            this.carListingsButton.Name = "carListingsButton";
+            this.carListingsButton.Size = new System.Drawing.Size(92, 23);
+            this.carListingsButton.TabIndex = 10;
+            this.carListingsButton.Text = "Show listings";
+            this.carListingsButton.UseVisualStyleBackColor = true;
+            this.carListingsButton.Click += new System.EventHandler(this.carListingsButton_Click);
+            // 
+            // rentedCarsPanelButton
+            // 
+            this.rentedCarsPanelButton.Location = new System.Drawing.Point(3, 108);
+            this.rentedCarsPanelButton.Name = "rentedCarsPanelButton";
+            this.rentedCarsPanelButton.Size = new System.Drawing.Size(92, 23);
+            this.rentedCarsPanelButton.TabIndex = 9;
+            this.rentedCarsPanelButton.Text = "Rented Cars";
+            this.rentedCarsPanelButton.UseVisualStyleBackColor = true;
+            this.rentedCarsPanelButton.Click += new System.EventHandler(this.rentedCarsPanelButton_Click);
+            // 
+            // accountBalanceLabel
+            // 
+            this.accountBalanceLabel.AutoSize = true;
+            this.accountBalanceLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.accountBalanceLabel.Location = new System.Drawing.Point(7, 51);
+            this.accountBalanceLabel.Name = "accountBalanceLabel";
+            this.accountBalanceLabel.Size = new System.Drawing.Size(38, 15);
+            this.accountBalanceLabel.TabIndex = 8;
+            this.accountBalanceLabel.Text = "label1";
+            // 
+            // logOutButtonTwo
+            // 
+            this.logOutButtonTwo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.logOutButtonTwo.Location = new System.Drawing.Point(7, 25);
+            this.logOutButtonTwo.Name = "logOutButtonTwo";
+            this.logOutButtonTwo.Size = new System.Drawing.Size(61, 23);
+            this.logOutButtonTwo.TabIndex = 6;
+            this.logOutButtonTwo.Text = "Log out";
+            this.logOutButtonTwo.UseVisualStyleBackColor = true;
+            this.logOutButtonTwo.Click += new System.EventHandler(this.logOutButtonTwo_Click);
+            // 
+            // signedInUserLabel
+            // 
+            this.signedInUserLabel.AutoSize = true;
+            this.signedInUserLabel.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.signedInUserLabel.Location = new System.Drawing.Point(11, 7);
+            this.signedInUserLabel.Name = "signedInUserLabel";
+            this.signedInUserLabel.Size = new System.Drawing.Size(38, 15);
+            this.signedInUserLabel.TabIndex = 7;
+            this.signedInUserLabel.Text = "label1";
+            // 
+            // carListingsPanel
+            // 
+            this.carListingsPanel.Location = new System.Drawing.Point(136, 5);
+            this.carListingsPanel.Name = "carListingsPanel";
+            this.carListingsPanel.Size = new System.Drawing.Size(153, 151);
+            this.carListingsPanel.TabIndex = 10;
+            // 
+            // rentedCarsPanel
+            // 
+            this.rentedCarsPanel.Location = new System.Drawing.Point(0, 0);
+            this.rentedCarsPanel.Name = "rentedCarsPanel";
+            this.rentedCarsPanel.Size = new System.Drawing.Size(124, 128);
+            this.rentedCarsPanel.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScroll = true;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(0)))), ((int)(((byte)(79)))));
-            this.ClientSize = new System.Drawing.Size(624, 449);
+            this.ClientSize = new System.Drawing.Size(924, 611);
+            this.Controls.Add(this.userLoggedInPanel);
             this.Controls.Add(this.signedInPanel);
             this.Controls.Add(this.loginPanel);
-            this.MaximumSize = new System.Drawing.Size(640, 488);
-            this.MinimumSize = new System.Drawing.Size(640, 488);
+            this.Controls.Add(this.carListingsPanel);
+            this.Controls.Add(this.rentedCarsPanel);
+            this.MaximumSize = new System.Drawing.Size(940, 650);
+            this.MinimumSize = new System.Drawing.Size(940, 650);
             this.Name = "Form1";
             this.loginPanel.ResumeLayout(false);
             this.loginPanel.PerformLayout();
@@ -279,7 +396,10 @@ namespace CarRentalProject
             this.signedInPanel.PerformLayout();
             this.createCarPanel.ResumeLayout(false);
             this.createCarPanel.PerformLayout();
+            this.userLoggedInPanel.ResumeLayout(false);
+            this.userLoggedInPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -305,6 +425,15 @@ namespace CarRentalProject
         public System.Windows.Forms.TextBox carPriceTextBox;
         public System.Windows.Forms.TextBox carOdoTextBox;
         public System.Windows.Forms.Button selectCarImageButton;
+        private System.Windows.Forms.Button logOutButton;
+        private System.Windows.Forms.Panel userLoggedInPanel;
+        private System.Windows.Forms.Button logOutButtonTwo;
+        private System.Windows.Forms.Label signedInUserLabel;
+        public System.Windows.Forms.Label accountBalanceLabel;
+        private System.Windows.Forms.Button rentedCarsPanelButton;
+        public System.Windows.Forms.Panel carListingsPanel;
+        private System.Windows.Forms.Button carListingsButton;
+        public System.Windows.Forms.Panel rentedCarsPanel;
     }
 }
 

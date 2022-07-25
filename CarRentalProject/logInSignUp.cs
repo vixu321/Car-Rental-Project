@@ -74,18 +74,23 @@ namespace CarRentalProject
             }
         }
 
-        public static void logIn(TextBox loginTextBox, TextBox passwordTextBox, Form1 form)
+        public static void logInUser(TextBox loginTextBox, TextBox passwordTextBox, Form1 form)
         {
             string[] data = new string[100];
             string line;
             int i = 0;
             string path = @"..\logins.txt";
-            //This is for debugging purposes only, de-comment for the proper functionality
+
             if (!File.Exists(path))
             {
-                MessageBox.Show("No login save file found! Try signing up first.", "Login error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No login save file found! Try signing up!.", "Login error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            //form.carListingsPanel.Size = new Size(760, 550);
+            //form.carListingsPanel.Location = new Point(133, 10);
+            form.carListingsPanel.Dock = DockStyle.Fill;
+            form.rentedCarsPanel.Dock = DockStyle.Fill;
+            
 
             //Make filestream for reading the file
             FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -100,20 +105,21 @@ namespace CarRentalProject
                 }
             }
 
-            for (int j = 0; j < i; j += 2)
+            for (int j = 0; j < i; j += 3)
             {
                 //Check if login and password match data
                 if (loginTextBox.Text == data[j] && passwordTextBox.Text == data[j + 1])
                 {
                     MessageBox.Show("Logged-in!", "Logged-in!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Form1.name = loginTextBox.Text;
-                    //Form1.signedIn();
+                    form.userBalance = float.Parse(data[j + 2]);
+                    form.signedInUser();
                     return;
                 }
                 //Check if login matches the data, but the password is different
                 else if (loginTextBox.Text == data[j] && passwordTextBox.Text != data[j + 1])
                 {
-                    MessageBox.Show("Password does not match the login!", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Password doesnt match the login!", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 else if (loginTextBox.Text == "" || passwordTextBox.Text == "")
@@ -122,9 +128,9 @@ namespace CarRentalProject
                     return;
                 }
             }
-            MessageBox.Show("No user found!", "Login error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
         }
+
+
 
         public static  void signUp(TextBox loginTextBox, TextBox passwordTextBox, Form1 form)
         {
@@ -164,7 +170,7 @@ namespace CarRentalProject
             using (StreamWriter sw = new StreamWriter(fsWrite))
             {
                 //Check if the login already exists
-                for (int j = 0; j < i; j += 2)
+                for (int j = 0; j < i; j += 3)
                 {
                     if (loginTextBox.Text == data[j])
                     {
@@ -175,6 +181,7 @@ namespace CarRentalProject
                 //Write login and password to file
                 sw.WriteLine(loginTextBox.Text);
                 sw.WriteLine(passwordTextBox.Text);
+                sw.WriteLine(form.userBalance);
                 MessageBox.Show("Successfully registered!", "Registered!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
