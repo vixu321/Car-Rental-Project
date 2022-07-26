@@ -56,6 +56,7 @@ namespace CarRentalProject
         {
             visiblePanel.Visible = false;
             visiblePanel = basePanel;
+            carListingsPanel.Visible = true;
             visiblePanel.Visible = true;
             signedInLabel.Text = "Welcome " + name +"!";
             saveAndLoad.loadSave(this, false);
@@ -134,6 +135,7 @@ namespace CarRentalProject
         public int xplace = 0;
         public int yplaceRented = 0;
         public int xplaceRented = 0;
+
         
         
         //Event handler with lambda function for deleteListing button, has to be done this way to send the panel element through the arguments

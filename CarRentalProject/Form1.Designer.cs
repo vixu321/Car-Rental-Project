@@ -364,17 +364,21 @@ namespace CarRentalProject
             // 
             // carListingsPanel
             // 
+            this.carListingsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(0)))), ((int)(((byte)(79)))));
             this.carListingsPanel.Location = new System.Drawing.Point(136, 5);
             this.carListingsPanel.Name = "carListingsPanel";
-            this.carListingsPanel.Size = new System.Drawing.Size(153, 151);
+            this.carListingsPanel.Size = new System.Drawing.Size(156, 146);
             this.carListingsPanel.TabIndex = 10;
+            this.carListingsPanel.Visible = false;
             // 
             // rentedCarsPanel
             // 
-            this.rentedCarsPanel.Location = new System.Drawing.Point(0, 0);
+            this.rentedCarsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(0)))), ((int)(((byte)(79)))));
+            this.rentedCarsPanel.Location = new System.Drawing.Point(136, 157);
             this.rentedCarsPanel.Name = "rentedCarsPanel";
             this.rentedCarsPanel.Size = new System.Drawing.Size(124, 128);
             this.rentedCarsPanel.TabIndex = 11;
+            this.rentedCarsPanel.Visible = false;
             // 
             // Form1
             // 
@@ -382,11 +386,11 @@ namespace CarRentalProject
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(0)))), ((int)(((byte)(79)))));
             this.ClientSize = new System.Drawing.Size(924, 611);
+            this.Controls.Add(this.rentedCarsPanel);
             this.Controls.Add(this.userLoggedInPanel);
             this.Controls.Add(this.signedInPanel);
             this.Controls.Add(this.loginPanel);
             this.Controls.Add(this.carListingsPanel);
-            this.Controls.Add(this.rentedCarsPanel);
             this.MaximumSize = new System.Drawing.Size(940, 650);
             this.MinimumSize = new System.Drawing.Size(940, 650);
             this.Name = "Form1";

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Linq;
-
+using System.Runtime;
 
 
 namespace CarRentalProject
@@ -24,9 +24,7 @@ namespace CarRentalProject
                 return;
             }
 
-        
-
-            createNewCarPanel(form.carsMade, newCar, form, false);
+            createNewCarPanel(form.carsMade, newCar, form, form.carListingsPanel, false);
             form.visiblePanel.Visible = false;
             form.visiblePanel = form.basePanel;
             form.carsMade++;
@@ -34,44 +32,19 @@ namespace CarRentalProject
 
         static int numOfInfoBoxes = 5;
 
-        public static void createNewCarPanel(int carsMade, Car car, Form1 form, bool isRented)
+        public static void createNewCarPanel(int carsMade, Car car, Form1 form, Panel backgroundPanel, bool isRented)
         {
             Panel panel = new Panel();
             
             Label[] textBoxes = new Label[numOfInfoBoxes];
             int x = 0, y = 0;
 
-            if(isRented)
-                panel.Location = new Point(150 + 150 * form.xplace, 10 + 300 * form.yplace);
-            else
-                panel.Location = new Point(150 + 150 * form.xplaceRented, 10 + 300 * form.yplaceRented);
-
-
 
             Size TextBoxSize = new Size(104, 16);
 
+            System.Diagnostics.Debug.WriteLine(panel.Location);
+            
             //Change x and y place for next panel
-            form.xplace++;
-            if (form.xplace >= form.numOfCarsInRow)
-            {
-                form.yplace++;
-                form.xplace = 0;
-            }
-            x = form.xplace;
-            y = form.yplace;
-
-            if (isRented)
-            {
-                form.xplaceRented++;
-                if (form.xplaceRented >= form.numOfCarsInRow)
-                {
-                    form.yplaceRented++;
-                    form.xplaceRented = 0;
-                }
-                x = form.xplaceRented;
-                y = form.yplaceRented;
-            }
-
 
 
             panel.Size = new Size(140, 290);
@@ -127,14 +100,50 @@ namespace CarRentalProject
             textBoxes[3].Text = "Odometer: " + car.odometer;
             textBoxes[4].Text = "Price/h: " + "$" + car.pricePerHour;
 
-            form.panels[carsMade] = panel;
-            form.cars[carsMade] = car;
+            
+
             if (!isRented)
-                form.carListingsPanel.Controls.Add(panel);
+            {
+                panel.Location = new Point(150 + 150 * form.xplace, 10 + 300 * form.yplace);
+                form.xplace++;
+                if (form.xplace >= form.numOfCarsInRow)
+                {
+                    form.yplace++;
+                    form.xplace = 0;
+                }
+                form.panels[carsMade] = panel;
+                form.cars[carsMade] = car;
+            }
             else
             {
-                form.rentedCarsPanel.Controls.Add(panel);
+                panel.Location = new Point(150 + 150 * form.xplaceRented, 10 + 300 * form.yplaceRented);
+                form.xplaceRented++;
+                if (form.xplaceRented >= form.numOfCarsInRow)
+                {
+                    form.yplaceRented++;
+                    form.xplaceRented = 0;
+                }
+                form.rentedPanels[carsMade] = panel;
+                form.rentedCars[carsMade] = car;
+
+                deleteListingButton.Dispose();
+
+                Label hoursLeftLabel = new Label();
+
+                string hoursLeft = DateTime.Now.AddHours(hours).ToString("HH:mm, dd.MM");
+                hoursLeftLabel.Text = "Rented till: " + hoursLeft;
+                hoursLeftLabel.Location = new Point(10, 105 + 25 * numOfInfoBoxes);
+                hoursLeftLabel.Size = new Size(170, 30);
+                hoursLeftLabel.ForeColor = Color.White;
+                hoursLeftLabel.Name = "hoursLeftLabel";
+
+                panel.Controls.Add(hoursLeftLabel);
+
+
             }
+
+            backgroundPanel.Controls.Add(panel);
+
         }
 
 
@@ -189,7 +198,7 @@ namespace CarRentalProject
                 //System.Diagnostics.Debug.WriteLine("Changing position: " + i + ", with: " + (i-1));
                 form.rentedPanels[i].Location = form.rentedPanels[i - 1].Location;
             }
-
+            System.Diagnostics.Debug.WriteLine(form.rentedCars[position].name);
             //Dispose of the deleted panel, free the array index
             form.rentedPanels[position].Dispose();
             form.rentedPanels[position] = null;
@@ -263,8 +272,9 @@ namespace CarRentalProject
 
             }
 
-
+            showListings(form);
         }
+
 
 
         public static Panel examinedPanel;
@@ -339,6 +349,11 @@ namespace CarRentalProject
             }
             else
             {
+                if(hours == 0)
+                {
+                    MessageBox.Show("Can not rent for 0 hours", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 System.Diagnostics.Debug.WriteLine("Rented a car"+position+cost);
                 form.userBalance -= cost;
                 form.accountBalanceLabel.Text = "Balance: $"+form.userBalance.ToString();
@@ -346,8 +361,11 @@ namespace CarRentalProject
                 cancelButtonClicked();
                 form.rentedCars[form.carsRentedNumber] = form.cars[position];
                 form.rentedPanels[form.carsRentedNumber] = form.panels[position];
-                form.carsRentedNumber++;
+                form.rentedCarsPanel.Controls.Add(panel);
                 deleteListing(form, panel);
+
+                createNewCarPanel(form.carsRentedNumber, form.rentedCars[form.carsRentedNumber], form, form.rentedCarsPanel, true);
+                form.carsRentedNumber++;
             }
 
         }
@@ -357,7 +375,7 @@ namespace CarRentalProject
         public static void hoursChangedControl(Form1 form, NumericUpDown numeric, int position)
         {
             System.Diagnostics.Debug.WriteLine(numeric.Value);
-            hours= (float)numeric.Value;
+            hours=(float)numeric.Value;
             float price = float.Parse(form.cars[position].pricePerHour);
             cost = hours * price;
 
@@ -402,12 +420,11 @@ namespace CarRentalProject
         {
             form.rentedCarsPanel.Visible = true;
             form.carListingsPanel.Visible = false;
+            form.rentedCarsPanel.Dock = DockStyle.Fill;            
 
             for (int i = 0; i<form.carsRentedNumber; i++)
             {
                 System.Diagnostics.Debug.WriteLine(form.rentedCars[i].name);
-
-                createNewCarPanel(i, form.rentedCars[i], form, true);
             }
         }
 

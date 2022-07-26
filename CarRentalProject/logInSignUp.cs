@@ -38,6 +38,9 @@ namespace CarRentalProject
                 return;
             }
 
+            form.carListingsPanel.Dock = DockStyle.Fill;
+
+
             //Make filestream for reading the file
             FileStream fsRead = new FileStream(path, FileMode.Open, FileAccess.Read);
 

@@ -130,7 +130,7 @@ namespace CarRentalProject
                             Car car = new Car(Name, Brand, Year, Odo, Price, form.carImageBitmaps[index]);
                             form.cars[index] = car;
                             System.Diagnostics.Debug.WriteLine("Creating car panel with name: " + Name + ", at index: " + index + "At x: "+form.xplace +"; y:"+form.yplace);
-                            carListings.createNewCarPanel(index, car, form, false);
+                            carListings.createNewCarPanel(index, car, form, form.carListingsPanel, false);
                             index++;
                             iteration = 0;
                             break;
