@@ -18,7 +18,7 @@ namespace CarRentalProject
             form.carImageBitmaps[form.carsMade] = form.tempBitmap;
             form.tempBitmap = null;
             Car newCar = new Car(form.carNameTextBox.Text, form.carBrandTextBox.Text, form.carYearTextBox.Text, form.carOdoTextBox.Text, form.carPriceTextBox.Text, form.carImageBitmaps[form.carsMade]);
-            if (form.carNameTextBox.Text == "" || form.carBrandTextBox.Text == "" || form.carYearTextBox.Text == "" || form.carOdoTextBox.Text == "" || form.carPriceTextBox.Text == "" || form.carImageBitmaps[form.carsMade] == null)
+            if (form.carNameTextBox.Text == "" || form.carBrandTextBox.Text == "" || form.carYearTextBox.Text == "" || form.carOdoTextBox.Text == "" || form.carPriceTextBox.Text == "" || form.carImageBitmaps[form.carsMade] == null || form.carPriceTextBox.Text == "Price/h"||form.carOdoTextBox.Text == "Odometer"||form.carYearTextBox.Text == "Year")
             {
                 MessageBox.Show("Some car info is missing!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -85,7 +85,6 @@ namespace CarRentalProject
             
 
 
-            panel.Name = carsMade.ToString();
 
             form.deleteListingClick(panel);
             //Set the click event, send panel through the arguments
@@ -104,6 +103,7 @@ namespace CarRentalProject
 
             if (!isRented)
             {
+                panel.Name = carsMade.ToString();
                 panel.Location = new Point(150 + 150 * form.xplace, 10 + 300 * form.yplace);
                 form.xplace++;
                 if (form.xplace >= form.numOfCarsInRow)
@@ -116,6 +116,7 @@ namespace CarRentalProject
             }
             else
             {
+                panel.Name = form.carsRentedNumber.ToString();
                 panel.Location = new Point(150 + 150 * form.xplaceRented, 10 + 300 * form.yplaceRented);
                 form.xplaceRented++;
                 if (form.xplaceRented >= form.numOfCarsInRow)
@@ -123,23 +124,20 @@ namespace CarRentalProject
                     form.yplaceRented++;
                     form.xplaceRented = 0;
                 }
-                form.rentedPanels[carsMade] = panel;
-                form.rentedCars[carsMade] = car;
-
+                form.rentedPanels[form.carsRentedNumber] = panel;
+                form.rentedCars[form.carsRentedNumber] = car;
+                
                 deleteListingButton.Dispose();
 
                 Label hoursLeftLabel = new Label();
 
-                string hoursLeft = DateTime.Now.AddHours(hours).ToString("HH:mm, dd.MM");
-                hoursLeftLabel.Text = "Rented till: " + hoursLeft;
+                hoursLeftLabel.Text = "Rented till: " + form.hoursRented[form.carsRentedNumber];
                 hoursLeftLabel.Location = new Point(10, 105 + 25 * numOfInfoBoxes);
                 hoursLeftLabel.Size = new Size(170, 30);
                 hoursLeftLabel.ForeColor = Color.White;
                 hoursLeftLabel.Name = "hoursLeftLabel";
 
                 panel.Controls.Add(hoursLeftLabel);
-
-
             }
 
             backgroundPanel.Controls.Add(panel);
@@ -363,7 +361,7 @@ namespace CarRentalProject
                 form.rentedPanels[form.carsRentedNumber] = form.panels[position];
                 form.rentedCarsPanel.Controls.Add(panel);
                 deleteListing(form, panel);
-
+                form.hoursRented[form.carsRentedNumber] = DateTime.Now.AddHours(hours).ToString("HH:mm dd.MM");
                 createNewCarPanel(form.carsRentedNumber, form.rentedCars[form.carsRentedNumber], form, form.rentedCarsPanel, true);
                 form.carsRentedNumber++;
             }
@@ -418,23 +416,20 @@ namespace CarRentalProject
 
         public static void showRentedCars(Form1 form)
         {
+            form.visiblePanel = form.rentedCarsPanel;
             form.rentedCarsPanel.Visible = true;
             form.carListingsPanel.Visible = false;
             form.rentedCarsPanel.Dock = DockStyle.Fill;            
-
-            for (int i = 0; i<form.carsRentedNumber; i++)
-            {
-                System.Diagnostics.Debug.WriteLine(form.rentedCars[i].name);
-            }
         }
 
         public static void showListings(Form1 form)
         {
+            form.visiblePanel = form.carListingsPanel;
             form.carListingsPanel.Visible = true;
             form.rentedCarsPanel.Visible = false;
         }
 
     }
-    }
+}
     
 

@@ -70,6 +70,7 @@ namespace CarRentalProject
             signedInUserLabel.Text = "Welcome " + name + "!";
             accountBalanceLabel.Text = "Balance: $"+userBalance.ToString();
             saveAndLoad.loadSave(this, false);
+            saveAndLoad.loadSaveRented(this, false);
             carListings.userSideListings(this);
         }
 
@@ -85,6 +86,7 @@ namespace CarRentalProject
 
         private void logOut()
         {
+            userLoggedInPanel.Visible = false;
             visiblePanel.Visible = false;
             visiblePanel = loginPanel;
             visiblePanel.Visible = true;
@@ -130,6 +132,7 @@ namespace CarRentalProject
         public Car[] rentedCars = new Car[25];
         public Bitmap tempBitmap;
         public int carsRentedNumber = 0;
+        public string[] hoursRented = new string[25];
 
         public int yplace = 0;
         public int xplace = 0;
@@ -256,6 +259,16 @@ namespace CarRentalProject
         private void carListingsButton_Click(object sender, EventArgs e)
         {
             carListings.showListings(this);
+        }
+
+        private void saveRentedButton_Click(object sender, EventArgs e)
+        {
+            saveAndLoad.saveRentedPanels(this);
+        }
+
+        private void loadRentedButton_Click(object sender, EventArgs e)
+        {
+            saveAndLoad.loadSaveRented(this, true);
         }
     }
 }

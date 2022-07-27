@@ -50,6 +50,9 @@ namespace CarRentalProject
             this.carNameTextBox = new System.Windows.Forms.TextBox();
             this.createCarButton = new System.Windows.Forms.Button();
             this.userLoggedInPanel = new System.Windows.Forms.Panel();
+            this.saveRentedButton = new System.Windows.Forms.Button();
+            this.loadListingsButtonTwo = new System.Windows.Forms.Button();
+            this.saveListingButton = new System.Windows.Forms.Button();
             this.carListingsButton = new System.Windows.Forms.Button();
             this.rentedCarsPanelButton = new System.Windows.Forms.Button();
             this.accountBalanceLabel = new System.Windows.Forms.Label();
@@ -57,6 +60,7 @@ namespace CarRentalProject
             this.signedInUserLabel = new System.Windows.Forms.Label();
             this.carListingsPanel = new System.Windows.Forms.Panel();
             this.rentedCarsPanel = new System.Windows.Forms.Panel();
+            this.loadRentedButton = new System.Windows.Forms.Button();
             this.loginPanel.SuspendLayout();
             this.signedInPanel.SuspendLayout();
             this.createCarPanel.SuspendLayout();
@@ -299,6 +303,10 @@ namespace CarRentalProject
             // 
             this.userLoggedInPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(19)))), ((int)(((byte)(68)))));
             this.userLoggedInPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.userLoggedInPanel.Controls.Add(this.loadRentedButton);
+            this.userLoggedInPanel.Controls.Add(this.saveRentedButton);
+            this.userLoggedInPanel.Controls.Add(this.loadListingsButtonTwo);
+            this.userLoggedInPanel.Controls.Add(this.saveListingButton);
             this.userLoggedInPanel.Controls.Add(this.carListingsButton);
             this.userLoggedInPanel.Controls.Add(this.rentedCarsPanelButton);
             this.userLoggedInPanel.Controls.Add(this.accountBalanceLabel);
@@ -310,6 +318,36 @@ namespace CarRentalProject
             this.userLoggedInPanel.Size = new System.Drawing.Size(133, 607);
             this.userLoggedInPanel.TabIndex = 9;
             this.userLoggedInPanel.Visible = false;
+            // 
+            // saveRentedButton
+            // 
+            this.saveRentedButton.Location = new System.Drawing.Point(7, 490);
+            this.saveRentedButton.Name = "saveRentedButton";
+            this.saveRentedButton.Size = new System.Drawing.Size(104, 23);
+            this.saveRentedButton.TabIndex = 13;
+            this.saveRentedButton.Text = "Save Rented";
+            this.saveRentedButton.UseVisualStyleBackColor = true;
+            this.saveRentedButton.Click += new System.EventHandler(this.saveRentedButton_Click);
+            // 
+            // loadListingsButtonTwo
+            // 
+            this.loadListingsButtonTwo.Location = new System.Drawing.Point(8, 548);
+            this.loadListingsButtonTwo.Name = "loadListingsButtonTwo";
+            this.loadListingsButtonTwo.Size = new System.Drawing.Size(104, 23);
+            this.loadListingsButtonTwo.TabIndex = 12;
+            this.loadListingsButtonTwo.Text = "Load Listings";
+            this.loadListingsButtonTwo.UseVisualStyleBackColor = true;
+            this.loadListingsButtonTwo.Click += new System.EventHandler(this.loadListingsButton_Click);
+            // 
+            // saveListingButton
+            // 
+            this.saveListingButton.Location = new System.Drawing.Point(7, 519);
+            this.saveListingButton.Name = "saveListingButton";
+            this.saveListingButton.Size = new System.Drawing.Size(104, 23);
+            this.saveListingButton.TabIndex = 11;
+            this.saveListingButton.Text = "Save Listings";
+            this.saveListingButton.UseVisualStyleBackColor = true;
+            this.saveListingButton.Click += new System.EventHandler(this.saveListingsButton_Click);
             // 
             // carListingsButton
             // 
@@ -380,6 +418,16 @@ namespace CarRentalProject
             this.rentedCarsPanel.TabIndex = 11;
             this.rentedCarsPanel.Visible = false;
             // 
+            // loadRentedButton
+            // 
+            this.loadRentedButton.Location = new System.Drawing.Point(8, 461);
+            this.loadRentedButton.Name = "loadRentedButton";
+            this.loadRentedButton.Size = new System.Drawing.Size(103, 23);
+            this.loadRentedButton.TabIndex = 14;
+            this.loadRentedButton.Text = "Load Rented";
+            this.loadRentedButton.UseVisualStyleBackColor = true;
+            this.loadRentedButton.Click += new System.EventHandler(this.loadRentedButton_Click);
+            // 
             // Form1
             // 
             this.AutoScroll = true;
@@ -438,6 +486,10 @@ namespace CarRentalProject
         public System.Windows.Forms.Panel carListingsPanel;
         private System.Windows.Forms.Button carListingsButton;
         public System.Windows.Forms.Panel rentedCarsPanel;
+        private System.Windows.Forms.Button saveRentedButton;
+        private System.Windows.Forms.Button loadListingsButtonTwo;
+        private System.Windows.Forms.Button saveListingButton;
+        private System.Windows.Forms.Button loadRentedButton;
     }
 }
 
